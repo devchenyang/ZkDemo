@@ -64,11 +64,20 @@ public class WatchCallback implements Watcher, AsyncCallback.StatCallback, Async
             case None:
                 break;
             case NodeCreated:
+                // 节点创建后获取数据
                 zk.getData("/AppConf", this, this, "asd");
                 break;
             case NodeDeleted:
+
+                // 节点删除后，
+                // 清空配置
+                myConf.setConf("");
+                // 恢复countDownLatch阻塞线程
+                latch = new CountDownLatch(1);
+
                 break;
             case NodeDataChanged:
+                // 节点修改后重新获取数据
                 zk.getData("/AppConf", this, this, "asd");
                 break;
             case NodeChildrenChanged:

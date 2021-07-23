@@ -45,7 +45,14 @@ public class TestConfig {
         // 3.节点修改
 
         while (true) {
-            System.out.println(myConf.getConf());
+
+            if ("".equals(myConf.getConf())) {
+                System.out.println("node is missing......");
+                watchCallback.aWait();
+            } else {
+                System.out.println(myConf.getConf());
+            }
+
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
